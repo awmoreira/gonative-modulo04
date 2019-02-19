@@ -13,6 +13,9 @@ const styles = StyleSheet.create({
     marginTop: metrics.basePadding,
     paddingBottom: metrics.basePadding,
   },
+  loading: {
+    marginTop: metrics.basePadding,
+  },
   searchInput: {
     backgroundColor: colors.secondary,
     borderRadius: metrics.baseRadius,

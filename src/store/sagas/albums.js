@@ -1,7 +1,7 @@
-import api from '~/services/api';
 import { call, put } from 'redux-saga/effects';
+import api from '../../services/api';
 
-import { Creators as AlbumsActions } from '~/store/ducks/albums';
+import { Creators as AlbumsActions } from '../ducks/albums';
 
 export function* getAlbums() {
   try {
@@ -9,7 +9,6 @@ export function* getAlbums() {
 
     yield put(AlbumsActions.getAlbumsSuccess(response.data));
   } catch (err) {
-    yield put(AlbumsActions.getAlbumsFailure('Falha ao buscar albums.'));
+    yield put(AlbumsActions.getAlbumsFailure('Erro ao busca os albums.'));
   }
 }
-

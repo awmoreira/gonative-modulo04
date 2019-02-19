@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Creators as AlbumsActions } from '~/store/ducks/albums'
 
 import {
   View, StatusBar, TouchableOpacity, FlatList,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Creators as AlbumsActions } from '../../store/ducks/albums';
 import { colors } from '../../styles';
-
 
 import AlbumItem from './components/AlbumItem';
 
@@ -36,9 +35,11 @@ class Main extends Component {
       navigate: PropTypes.func,
     }).isRequired,
     albums: PropTypes.shape({
-      data: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number,
-      })),
+      data: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number,
+        }),
+      ),
     }).isRequired,
     getAlbumsRequest: PropTypes.func.isRequired,
   };
@@ -72,4 +73,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators(AlbumsActions, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Main);

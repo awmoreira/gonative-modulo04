@@ -1,5 +1,5 @@
 import { createAppContainer, createStackNavigator } from 'react-navigation';
-import { colors, metrics } from '~/styles';
+import { colors } from '~/styles';
 
 import Main from './pages/main';
 import Search from './pages/search';
