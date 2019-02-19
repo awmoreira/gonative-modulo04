@@ -1,307 +1,75 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as AlbumsActions } from '~/store/ducks/albums'
+
 import {
   View, StatusBar, TouchableOpacity, FlatList,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors } from '../../styles';
 
+
 import AlbumItem from './components/AlbumItem';
 
 import styles from './styles';
 
-const albums = [
-  {
-    "id": 0,
-    "title": "Hybrid Theory",
-    "author": "Linkin Park",
-    "thumbnail": "https://s3-sa-east-1.amazonaws.com/gonative/linkin_park.jpg",
-    "songs": [
-      {
-        "id": 0,
-        "title": "Papercut",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/1.mp3"
-      },
-      {
-        "id": 1,
-        "title": "One Step Closer",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/2.mp3"
-      },
-      {
-        "id": 2,
-        "title": "With You",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/3.mp3"
-      },
-      {
-        "id": 3,
-        "title": "Points of Authority",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/4.mp3"
-      },
-      {
-        "id": 4,
-        "title": "Crawling",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/5.mp3"
-      }
-    ]
-  },
-  {
-    "id": 1,
-    "title": "Greatest Hits",
-    "author": "Foo Fighters",
-    "thumbnail": "https://s3-sa-east-1.amazonaws.com/gonative/foo_fighters.jpg",
-    "songs": [
-      {
-        "id": 0,
-        "title": "Papercut",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/1.mp3"
-      },
-      {
-        "id": 1,
-        "title": "One Step Closer",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/2.mp3"
-      },
-      {
-        "id": 2,
-        "title": "With You",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/3.mp3"
-      },
-      {
-        "id": 3,
-        "title": "Points of Authority",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/4.mp3"
-      },
-      {
-        "id": 4,
-        "title": "Crawling",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/5.mp3"
-      }
-    ]
-  },
-  {
-    "id": 2,
-    "title": "Live from Villa Mix",
-    "author": "Alok",
-    "thumbnail": "https://s3-sa-east-1.amazonaws.com/gonative/alok.jpg",
-    "songs": [
-      {
-        "id": 0,
-        "title": "Papercut",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/1.mp3"
-      },
-      {
-        "id": 1,
-        "title": "One Step Closer",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/2.mp3"
-      },
-      {
-        "id": 2,
-        "title": "With You",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/3.mp3"
-      },
-      {
-        "id": 3,
-        "title": "Points of Authority",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/4.mp3"
-      },
-      {
-        "id": 4,
-        "title": "Crawling",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/5.mp3"
-      }
-    ]
-  },
-  {
-    "id": 3,
-    "title": "Hybrid Theory",
-    "author": "Linkin Park",
-    "thumbnail": "https://s3-sa-east-1.amazonaws.com/gonative/linkin_park.jpg",
-    "songs": [
-      {
-        "id": 0,
-        "title": "Papercut",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/1.mp3"
-      },
-      {
-        "id": 1,
-        "title": "One Step Closer",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/2.mp3"
-      },
-      {
-        "id": 2,
-        "title": "With You",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/2.mp3"
-      },
-      {
-        "id": 3,
-        "title": "Points of Authority",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/3.mp3"
-      },
-      {
-        "id": 4,
-        "title": "Crawling",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/5.mp3"
-      }
-    ]
-  },
-  {
-    "id": 4,
-    "title": "Live from Villa Mix",
-    "author": "Alok",
-    "thumbnail": "https://s3-sa-east-1.amazonaws.com/gonative/alok.jpg",
-    "songs": [
-      {
-        "id": 0,
-        "title": "Papercut",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/1.mp3"
-      },
-      {
-        "id": 1,
-        "title": "One Step Closer",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/2.mp3"
-      },
-      {
-        "id": 2,
-        "title": "With You",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/3.mp3"
-      },
-      {
-        "id": 3,
-        "title": "Points of Authority",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/4.mp3"
-      },
-      {
-        "id": 4,
-        "title": "Crawling",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/5.mp3"
-      }
-    ]
-  },
-  {
-    "id": 5,
-    "title": "Greatest Hits",
-    "author": "Foo Fighters",
-    "thumbnail": "https://s3-sa-east-1.amazonaws.com/gonative/foo_fighters.jpg",
-    "songs": [
-      {
-        "id": 0,
-        "title": "Papercut",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/1.mp3"
-      },
-      {
-        "id": 1,
-        "title": "One Step Closer",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/2.mp3"
-      },
-      {
-        "id": 2,
-        "title": "With You",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/3.mp3"
-      },
-      {
-        "id": 3,
-        "title": "Points of Authority",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/4.mp3"
-      },
-      {
-        "id": 4,
-        "title": "Crawling",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/5.mp3"
-      }
-    ]
-  },
-  {
-    "id": 6,
-    "title": "Hybrid Theory",
-    "author": "Linkin Park",
-    "thumbnail": "https://s3-sa-east-1.amazonaws.com/gonative/linkin_park.jpg",
-    "songs": [
-      {
-        "id": 0,
-        "title": "Papercut",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/1.mp3"
-      },
-      {
-        "id": 1,
-        "title": "One Step Closer",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/2.mp3"
-      },
-      {
-        "id": 2,
-        "title": "With You",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/3.mp3"
-      },
-      {
-        "id": 3,
-        "title": "Points of Authority",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/4.mp3"
-      },
-      {
-        "id": 4,
-        "title": "Crawling",
-        "author": "Linkin Park",
-        "file": "https://s3-sa-east-1.amazonaws.com/gonative/5.mp3"
-      }
-    ]
+class Main extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: 'Sua biblioteca',
+    headerRight: (
+      <TouchableOpacity style={styles.headerRight} onPress={() => navigation.navigate('Search')}>
+        <Icon name="search" size={24} color="#FFF" />
+      </TouchableOpacity>
+    ),
+    headerStyle: {
+      backgroundColor: colors.secondary,
+      borderBottomWidth: 0,
+    },
+    headerTintColor: colors.white,
+  });
+
+  static propTypes = {
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func,
+    }).isRequired,
+    albums: PropTypes.shape({
+      data: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number,
+      })),
+    }).isRequired,
+    getAlbumsRequest: PropTypes.func.isRequired,
+  };
+
+  componentDidMount() {
+    this.props.getAlbumsRequest();
   }
-];
 
-const Main = () => (
-  <View style={styles.container}>
-    <StatusBar barStyle="light-content" />
+  render() {
+    const { navigation, albums } = this.props;
 
-    <FlatList
-      data={albums}
-      keyExtractor={album => String(album.id)}
-      renderItem={({ item }) => <AlbumItem album={item} />}
-    />
-  </View>
-);
+    return (
+      <View style={styles.container}>
+        <StatusBar barStyle="light-content" />
 
-Main.navigationOptions = ({ navigation }) => ({
-  title: 'Sua biblioteca',
-  headerRight: (
-    <TouchableOpacity style={styles.headerRight} onPress={() => navigation.navigate('Search')}>
-      <Icon name="search" size={24} color="#FFF" />
-    </TouchableOpacity>
-  ),
-  headerStyle: {
-    backgroundColor: colors.secondary,
-    borderBottomWidth: 0,
-  },
-  headerTintColor: colors.white,
+        <FlatList
+          data={albums.data}
+          keyExtractor={album => String(album.id)}
+          renderItem={({ item }) => (
+            <AlbumItem onPress={() => navigation.navigate('Album', { album: item })} album={item} />
+          )}
+        />
+      </View>
+    );
+  }
+}
+
+const mapStateToProps = state => ({
+  albums: state.albums,
 });
 
-export default Main;
+const mapDispatchToProps = dispatch => bindActionCreators(AlbumsActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

@@ -8,8 +8,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import styles from './styles';
 
-const AlbumItem = ({ album }) => (
-  <TouchableOpacity onPress={() => {}} style={styles.container}>
+const AlbumItem = ({ album, onPress }) => (
+  <TouchableOpacity onPress={onPress} style={styles.container}>
     <Image style={styles.thumbnail} source={{ uri: album.thumbnail }} />
     <View style={styles.info}>
       <Text style={styles.title}>{album.title}</Text>
@@ -25,6 +25,7 @@ AlbumItem.propTypes = {
     title: PropTypes.string,
     author: PropTypes.string,
   }).isRequired,
+  onPress: PropTypes.func.isRequired,
 };
 
 export default AlbumItem;
