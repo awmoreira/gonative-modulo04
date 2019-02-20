@@ -2,6 +2,9 @@ import { StyleSheet } from 'react-native';
 import { colors, metrics } from '~/styles';
 
 const styles = StyleSheet.create({
+  active: {
+    color: colors.green,
+  },
   author: {
     color: colors.dark,
     fontSize: 14,
@@ -15,6 +18,9 @@ const styles = StyleSheet.create({
   },
   info: {
     flex: 1,
+  },
+  loading: {
+    marginRight: 2,
   },
   play: {
     color: colors.regular,
